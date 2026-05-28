@@ -1,4 +1,4 @@
-# the linux mint 22.2 menu continued with more settings
+# the linux mint 22.2 menu continued with more settings and improvements
 
  ## showing the settings in mint 22.3 beta
 
