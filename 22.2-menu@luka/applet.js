@@ -73,6 +73,8 @@ const MATCH_ADDERS = [
     3000 // id
 ];
 
+let LukaKeyNavigation = false;
+
 /* VisibleChildIterator takes a container (boxlayout, etc.)
  * and creates an array of its visible children and their index
  * positions.  We can then work through that list without
@@ -1318,7 +1320,6 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.set_show_label_in_vertical_panels(false);
     }
 	_updateResize() {
-		global.log("lock the size");
 		if (!this.lockSize) {
 	        this._resizer = new Applet.PopupResizeHandler(this.menu.actor,
 	            () => this._orientation,
@@ -1916,6 +1917,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         }
 
         if (navigationKey) {
+            LukaKeyNavigation = true;
             switch (this._activeContainer) {
                 case this.categoriesBox:
                     switch (whichWay) {
@@ -2196,7 +2198,8 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
                 return;
             
             if (button.categoryId !== this.lastSelectedCategory) {
-                if (this.categoryHover) {
+                if (this.categoryHover || LukaKeyNavigation) {
+                LukaKeyNavigation = false;
                     this.categoriesBox.get_children().forEach(child => 
                         child.set_style_class_name("menu-category-button"));
                     button.activate();
