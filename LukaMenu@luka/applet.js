@@ -2605,8 +2605,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
          * the remaining elements */
         for (let i = this._categoryButtons.length - 1; i > -1; i--) {
             let b = this._categoryButtons[i];
-            if (b === this._allAppsCategoryButton ||
-                ['place', 'recent', 'favorite'].includes(b.categoryId))
+            if (['place', 'recent', 'favorite'].includes(b.categoryId))
                 continue;
             this._categoryButtons[i].destroy();
             this._categoryButtons.splice(i, 1);
@@ -2615,11 +2614,9 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this._applicationsButtons.forEach(button => button.destroy());
         this._applicationsButtons = [];
 
-        if (!this._allAppsCategoryButton) {
-            this._allAppsCategoryButton = new CategoryButton(this, null, _("All Applications"), "cinnamon-all-applications", true);
-            this.categoriesBox.add_actor(this._allAppsCategoryButton.actor);
-            this._categoryButtons.push(this._allAppsCategoryButton);
-        }
+        this._allAppsCategoryButton = new CategoryButton(this, null, _("All Applications"), "cinnamon-all-applications", true);
+        this.categoriesBox.add_actor(this._allAppsCategoryButton.actor);
+        this._categoryButtons.push(this._allAppsCategoryButton);
 
         // grab top level directories and all apps in them
         let [apps, dirs] = AppUtils.getApps();
