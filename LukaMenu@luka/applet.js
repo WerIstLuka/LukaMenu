@@ -363,7 +363,7 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
     }
 
     activate (event) {
-        const relevantKeys = [Clutter.KEY_space, Clutter.KEY_KP_Enter, Clutter.KEY_Return];
+        const relevantKeys = [Clutter.KEY_space, Clutter.KEY_KP_Enter, Clutter.KEY_Return, 0];
         let button = event.get_button();
         let symbol = event.get_key_symbol();
         let keyPressed = false;
@@ -373,7 +373,7 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
             keyPressed = true;
         }
 
-        if (button === Clutter.BUTTON_SECONDARY || !keyPressed) {
+        if (!(button === Clutter.BUTTON_PRIMARY || button === 0) || !keyPressed) {
             return;
         }
 
@@ -444,8 +444,10 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
         if (CloseMenu) {
             this._appButton.applet.menu.close();
         }
-        if (keyPressed){
+        if (keyPressed && button === 0){
             this._appButton.grab_key_focus();
+            //for some reason this prevents the context menu from closing
+            //if its not here then the entire menu closes after interacting with the context menu
         }
         this._appButton.applet.toggleContextMenu(this._appButton);
         return false;
