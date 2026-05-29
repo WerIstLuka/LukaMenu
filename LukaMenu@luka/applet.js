@@ -363,6 +363,7 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
     }
 
     activate (event) {
+        let CloseMenu = true;
         switch (this._action) {
             case "add_to_panel":
                 if (!Main.AppletManager.get_role_provider_exists(Main.AppletManager.Roles.PANEL_LAUNCHER)) {
@@ -384,6 +385,7 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
                     }
                     return false;
                 });
+                CloseMenu = false;
                 break;
             case "add_to_desktop":
                 let file = Gio.file_new_for_path(this._appButton.app.get_app_info().get_filename());
@@ -394,12 +396,15 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
                 }catch(e){
                     global.log(e);
                 }
+                CloseMenu = false;
                 break;
             case "add_to_favorites":
                 AppFavorites.getAppFavorites().addFavorite(this._appButton.app.get_id());
+                CloseMenu = false;
                 break;
             case "remove_from_favorites":
                 AppFavorites.getAppFavorites().removeFavorite(this._appButton.app.get_id());
+                CloseMenu = false;
                 break;
             case "app_properties":
                 Util.spawnCommandLine("cinnamon-desktop-editor -mlauncher -o" + GLib.shell_quote(this._appButton.app.get_app_info().get_filename()));
@@ -424,7 +429,9 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
                 } else return true;
         }
         this._appButton.applet.toggleContextMenu(this._appButton);
-        this._appButton.applet.menu.close();
+        if (CloseMenu) {
+            this._appButton.applet.menu.close();
+        }
         return false;
     }
 
