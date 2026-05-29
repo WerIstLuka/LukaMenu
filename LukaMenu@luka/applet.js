@@ -363,7 +363,20 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
     }
 
     activate (event) {
+        const relevantKeys = [Clutter.KEY_space, Clutter.KEY_KP_Enter, Clutter.KEY_Return];
+        let button = event.get_button();
+        let symbol = event.get_key_symbol();
+        let keyPressed = false;
         let CloseMenu = true;
+
+        if (relevantKeys.includes(symbol)) {
+            keyPressed = true;
+        }
+
+        if (button === Clutter.BUTTON_SECONDARY || !keyPressed) {
+            return;
+        }
+
         switch (this._action) {
             case "add_to_panel":
                 if (!Main.AppletManager.get_role_provider_exists(Main.AppletManager.Roles.PANEL_LAUNCHER)) {
@@ -428,10 +441,13 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
                     this._appButton.app.get_app_info().launch_action(action, global.create_app_launch_context());
                 } else return true;
         }
-        this._appButton.applet.toggleContextMenu(this._appButton);
         if (CloseMenu) {
             this._appButton.applet.menu.close();
         }
+        if (keyPressed){
+            this._appButton.grab_key_focus();
+        }
+        this._appButton.applet.toggleContextMenu(this._appButton);
         return false;
     }
 
@@ -1843,7 +1859,11 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
                 case Clutter.KEY_Down:
                 case Clutter.KEY_KP_Down:
                 case Clutter.KEY_Return:
+                    button.activate();
+                    break;
                 case Clutter.KEY_KP_Enter:
+                    button.activate();
+                    break;
                 case Clutter.KEY_Menu:
                 case Clutter.KEY_Page_Up:
                 case Clutter.KEY_Page_Down:
