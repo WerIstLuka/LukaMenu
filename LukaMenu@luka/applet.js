@@ -1563,6 +1563,8 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
 
             this.lastSelectedCategory = null;
 
+			this.resetSearch();
+
             if (this._size_dirty) {
                 this._setMenuSize(this.popup_width, this.popup_height);
             }
@@ -1577,9 +1579,6 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
             Mainloop.idle_add(Lang.bind(this, this._initial_cat_selection, n));
         } else {
             this.actor.remove_style_pseudo_class('active');
-            if (this.searchActive) {
-                this.resetSearch();
-            }
             this.selectedAppTitle.set_text("");
             this.selectedAppDescription.set_text("");
             this._previousCategoryHoverActor = null;
