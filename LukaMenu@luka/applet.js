@@ -363,20 +363,7 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
     }
 
     activate (event) {
-        const relevantKeys = [Clutter.KEY_space, Clutter.KEY_KP_Enter, Clutter.KEY_Return, 0];
-        let button = event.get_button();
-        let symbol = event.get_key_symbol();
-        let keyPressed = false;
         let CloseMenu = true;
-
-        if (relevantKeys.includes(symbol)) {
-            keyPressed = true;
-        }
-
-        if (!(button === Clutter.BUTTON_PRIMARY || button === 0) || !keyPressed) {
-            return;
-        }
-
         switch (this._action) {
             case "add_to_panel":
                 if (!Main.AppletManager.get_role_provider_exists(Main.AppletManager.Roles.PANEL_LAUNCHER)) {
@@ -413,10 +400,16 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
                 break;
             case "add_to_favorites":
                 AppFavorites.getAppFavorites().addFavorite(this._appButton.app.get_id());
+				this.label.set_text(_("Remove from favorites"));
+				this.icon.icon_name = "starred";
+				this._action = "remove_from_favorites";
                 CloseMenu = false;
                 break;
             case "remove_from_favorites":
                 AppFavorites.getAppFavorites().removeFavorite(this._appButton.app.get_id());
+				this.label.set_text(_("Add to favorites"));
+				this.icon.icon_name = "non-starred";
+				this._action = "add_to_favorites";
                 CloseMenu = false;
                 break;
             case "app_properties":
@@ -442,14 +435,9 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
                 } else return true;
         }
         if (CloseMenu) {
+			this._appButton.applet.toggleContextMenu(this._appButton);
             this._appButton.applet.menu.close();
         }
-        if (keyPressed && button === 0){
-            this._appButton.grab_key_focus();
-            //for some reason this prevents the context menu from closing
-            //if its not here then the entire menu closes after interacting with the context menu
-        }
-        this._appButton.applet.toggleContextMenu(this._appButton);
         return false;
     }
 
