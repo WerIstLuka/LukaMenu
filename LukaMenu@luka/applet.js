@@ -1552,6 +1552,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
             this.lastSelectedCategory = null;
 
 			this.resetSearch();
+			this._resetSortOrder();
 
             if (this._size_dirty) {
                 this._setMenuSize(this.popup_width, this.popup_height);
