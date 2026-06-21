@@ -364,6 +364,10 @@ class ApplicationContextMenuItem extends PopupMenu.PopupBaseMenuItem {
 
     activate (event) {
         let CloseMenu = true;
+		let button = event.get_button();
+		if (!(button === Clutter.BUTTON_PRIMARY)) {
+			return;
+		}
         switch (this._action) {
             case "add_to_panel":
                 if (!Main.AppletManager.get_role_provider_exists(Main.AppletManager.Roles.PANEL_LAUNCHER)) {
