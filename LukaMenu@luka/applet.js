@@ -1264,7 +1264,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.settings.bind("show-quit", "show_quit", () => this.queueRefresh(RefreshFlags.SYSTEM));
         this.settings.bind("show-name", "showName", () => this.queueRefresh(REFRESH_ALL_MASK));
         this.settings.bind("show-description", "showDescription", () => this.queueRefresh(REFRESH_ALL_MASK));
-        this.settings.bind("lock-size", "lockSize", () => this._updateResize()); //lock -> needs restart, unlock -> needs no restart
+        this.settings.bind("lock-size", "lockSize", () => this._updateLock()); //lock -> needs restart, unlock -> needs no restart
         this.settings.bind("inf-size", "infSize", () => this._updateResize());
 
         this._updateResize();
@@ -1332,6 +1332,16 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
 
         this.set_show_label_in_vertical_panels(false);
     }
+
+	_updateLock(){
+		if (!this.lockSize) {
+			this._updateResize()
+		} else {
+			// this works but i hate it
+			Util.spawnCommandLine('bash -c "/usr/bin/cinnamon-dbus-command ReloadXlet LukaMenu@luka APPLET & disown"');
+		}
+	}
+
 	_updateResize() {
 		if (!this.lockSize) {
 	        this._resizer = new Applet.PopupResizeHandler(this.menu.actor,
@@ -1348,10 +1358,6 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
 		this.popup_width = width;
 		this.popup_height = height;
 		this._setMenuSize(width, height);
-	}
-
-	_restartCinnamon() {
-		Main.restartCinnamon();
 	}
 
     _updateShowIcons(container, show) {

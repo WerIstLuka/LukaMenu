@@ -47,7 +47,7 @@
         "menu-options" : {
         	"type" : "section",
         	"title" : "Menu Options",
-        	"keys" : ["show-name", "show-description", "lock-size", "inf-size", "luka-size", "restart-cinnamon"]
+        	"keys" : ["show-name", "show-description", "lock-size", "inf-size", "luka-size"]
         }
     },
  "overlay-key" : {
@@ -258,10 +258,5 @@
     "type" : "button",
     "description" : "Set the menu to my preffered size",
     "callback" : "_lukaSize"
- },
-    "restart-cinnamon" : {
-    "type" : "button",
-    "description" : "Restart cinnamon",
-    "callback" : "_restartCinnamon"
  }
 }
