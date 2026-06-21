@@ -28,7 +28,7 @@ const Params = imports.misc.params;
 //translation stuff from fredcw
 const Gettext = imports.gettext;
 
-Gettext.bindtextdomain(__meta.uuid, GLib.get_home_dir() + '/.local/share/locale');
+Gettext.bindtextdomain("LukaMenu@luka", GLib.get_home_dir() + '/.local/share/locale');
 
 function _(str) {
     let cinnamonTranslation = Gettext.gettext(str);
