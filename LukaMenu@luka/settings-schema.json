@@ -246,8 +246,7 @@
     "lock-size" : {
     "type" : "switch",
     "default" : false,
-    "description" : "Lock the menu size",
-    "tooltip": "needs cinnamon restart\n\npress ctrl+alt+esc to restart cinnamon\n\nor press the button below"
+    "description" : "Lock the menu size"
  },
     "inf-size" : {
     "type" : "switch",
