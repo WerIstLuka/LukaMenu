@@ -1270,10 +1270,13 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.settings.bind("show-description", "showDescription", () => this.queueRefresh(REFRESH_ALL_MASK));
         this.settings.bind("lock-size", "lockSize", () => this._updateLock()); //lock -> needs restart, unlock -> needs no restart
         this.settings.bind("inf-size", "infSize", () => this._updateResize());
+        this.settings.bind("old-quit-dialog", "oldQuit", () => this._updateQuitDialog());
 
         this._updateResize();
 
         this._updateKeybinding();
+
+        this._updateQuitDialog();
 
         Main.themeManager.connect("theme-set", Lang.bind(this, this._theme_set));
         this._updateIconAndLabel();
@@ -1346,6 +1349,15 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
 		}
 	}
 
+    _updateQuitDialog(){
+        // would be nice to read the current value so this wont write excessively to the disk
+        // realistically this is gonna be changed like 5 times max so its not too bad
+        if (this.oldQuit){
+            Util.spawnCommandLine('dconf write /org/cinnamon/cinnamon-session/force-gtk-end-session-dialog true');
+        } else {
+            Util.spawnCommandLine('dconf write /org/cinnamon/cinnamon-session/force-gtk-end-session-dialog false');
+        }
+    }
 	_updateResize() {
 		if (!this.lockSize) {
 	        this._resizer = new Applet.PopupResizeHandler(this.menu.actor,

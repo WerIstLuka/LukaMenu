@@ -42,7 +42,7 @@
         "system-buttons" : {
             "type" : "section",
             "title" : "System Buttons",
-            "keys" : ["show-lock", "show-logout", "show-quit"]
+            "keys" : ["show-lock", "show-logout", "show-quit", "old-quit-dialog"]
         },
         "menu-options" : {
         	"type" : "section",
@@ -232,6 +232,11 @@
     "type" : "switch",
     "default" : true,
     "description" : "Show quit button"
+ },
+    "old-quit-dialog" : {
+    "type" : "switch",
+    "default" : false,
+    "description" : "Use the old gtk quit dialog"
  },
     "show-name" : {
     "type" : "switch",
