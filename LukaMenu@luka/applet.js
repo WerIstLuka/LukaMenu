@@ -1271,6 +1271,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.settings.bind("lock-size", "lockSize", () => this._updateLock()); //lock -> needs restart, unlock -> needs no restart
         this.settings.bind("inf-size", "infSize", () => this._updateResize());
         this.settings.bind("old-quit-dialog", "oldQuit", () => this._updateQuitDialog());
+        this.settings.bind("show-category-hover", "showCategoryHover");
 
         this._updateResize();
 
@@ -2242,7 +2243,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
                     this.categoriesBox.get_children().forEach(child => 
                         child.set_style_class_name("menu-category-button"));
                     button.activate();
-                } else {
+                } else if (this.showCategoryHover) {
                     button.actor.add_style_pseudo_class("hover");
                 }
             }

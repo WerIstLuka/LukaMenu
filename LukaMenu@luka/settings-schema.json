@@ -47,7 +47,7 @@
         "menu-options" : {
         	"type" : "section",
         	"title" : "Menu Options",
-        	"keys" : ["show-name", "show-description", "lock-size", "inf-size", "luka-size"]
+        	"keys" : ["show-category-hover","show-name", "show-description", "lock-size", "inf-size", "luka-size"]
         }
     },
  "overlay-key" : {
@@ -238,6 +238,11 @@
     "default" : false,
     "description" : "Use the old gtk quit dialog"
  },
+    "show-category-hover" : {
+    "type" : "switch",
+    "default" : false,
+    "description" : "Highlight Category on hover"
+    },
     "show-name" : {
     "type" : "switch",
     "default" : true,
