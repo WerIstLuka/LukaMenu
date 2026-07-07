@@ -1272,6 +1272,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.settings.bind("inf-size", "infSize", () => this._updateResize());
         this.settings.bind("old-quit-dialog", "oldQuit", () => this._updateQuitDialog());
         this.settings.bind("show-category-hover", "showCategoryHover");
+        this.settings.bind("category-keyboard-navigation", "CategoryKeyboardNavigation");
 
         this._updateResize();
 
@@ -1957,7 +1958,9 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         }
 
         if (navigationKey) {
-            LukaKeyNavigation = true;
+            if (this.CategoryKeyboardNavigation) {
+                LukaKeyNavigation = true;
+            }
             switch (this._activeContainer) {
                 case this.categoriesBox:
                     switch (whichWay) {

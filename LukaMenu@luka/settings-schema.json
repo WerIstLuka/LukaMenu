@@ -47,7 +47,7 @@
         "menu-options" : {
         	"type" : "section",
         	"title" : "Menu Options",
-        	"keys" : ["show-category-hover","show-name", "show-description", "lock-size", "inf-size", "luka-size"]
+        	"keys" : ["show-category-hover", "category-keyboard-navigation","show-name", "show-description", "lock-size", "inf-size", "luka-size"]
         }
     },
  "overlay-key" : {
@@ -242,6 +242,12 @@
     "type" : "switch",
     "default" : false,
     "description" : "Highlight Category on hover"
+    },
+    "category-keyboard-navigation" : {
+    "type" : "switch",
+    "default" : false,
+    "description" : "Switch categories immediately by using arrow keys",
+    "tooltip" : "Change categories on hover but only for keyboard navigation"
     },
     "show-name" : {
     "type" : "switch",
