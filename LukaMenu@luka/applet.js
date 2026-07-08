@@ -46,7 +46,8 @@ const USER_DESKTOP_PATH = FileUtils.getUserDesktopDir();
 const PRIVACY_SCHEMA = "org.cinnamon.desktop.privacy";
 const REMEMBER_RECENT_KEY = "remember-recent-files";
 
-const AppUtils = require('./appUtils');
+const Me = imports.ui.extension.getCurrentExtension();
+const AppUtils = Me.imports.appUtils;
 
 let appsys = Cinnamon.AppSystem.get_default();
 
@@ -1637,7 +1638,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         let size;
 
         if (this.menuCustom) {
-            size = Math.min(this.menuIconSize, this.panel.height);
+            size = Math.min(this.menuIconSize, this.panel.get_height());
         } else {
             size = this.getPanelIconSize(icon_type);
         }
