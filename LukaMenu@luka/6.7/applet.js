@@ -515,7 +515,7 @@ class GenericApplicationButton extends SimpleMenuItem {
             menuItem = new ApplicationContextMenuItem(this, _("Uninstall"), "uninstall", "edit-delete");
             menu.addMenuItem(menuItem);
         }
-        
+
         let actions = appinfo.list_actions();
         if (actions) {
             for (let i = 0; i < actions.length; i++) {
@@ -1371,7 +1371,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
 	    }
 	}
 
-	_lukaSize() {
+	_setSize() {
 		let width = 965;
 		let height = 503;
 		this.popup_width = width;
@@ -1598,7 +1598,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
             this._previousCategoryHoverActor = null;
             this._previousSelectedAppActor = null;
             this.closeContextMenu(false);
-            
+
             this._disableVectorMask();
             this._scrollToButton(null, this.applicationsScrollBox);
             this._scrollToButton(null, this.categoriesScrollBox);
@@ -1901,9 +1901,9 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         let navigationKey = true;
         let whichWay = "none";
         if (this._activeContainer === null) {
-            this._setKeyFocusToCurrentCategoryButton(); 
+            this._setKeyFocusToCurrentCategoryButton();
         }
-        
+
         switch (symbol) {
             case Clutter.KEY_Up:
             case Clutter.KEY_KP_Up:
@@ -2141,8 +2141,8 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
                         item_actor = this.favoritesBox.get_child_at_index(selectedItemIndex);
                 }
             } else if (this._activeContainer === this.favoritesBox &&
-                        (symbol === Clutter.KEY_Down || symbol === Clutter.KEY_KP_Down || 
-                         symbol === Clutter.KEY_Up || symbol === Clutter.KEY_KP_Up) && 
+                        (symbol === Clutter.KEY_Down || symbol === Clutter.KEY_KP_Down ||
+                         symbol === Clutter.KEY_Up || symbol === Clutter.KEY_KP_Up) &&
                         ctrlKey && this._activeActor._delegate instanceof FavoritesButton) {
                 const selectedItemIndex = this._activeContainer._vis_iter.getAbsoluteIndexOfChild(this._activeActor);
                 item_actor = this._activeActor;
@@ -2226,7 +2226,7 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         } else if (item_actor.get_parent() === this.applicationsBox) {
             this._scrollToButton(item_actor._delegate, this.applicationsScrollBox);
         }
-        
+
         this._buttonEnterEvent(item_actor._delegate);
         return true;
     }
@@ -2236,11 +2236,11 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.applicationsBox.get_children().forEach(child => child.set_style_class_name("menu-application-button"));
         this.favoritesBox.get_children().forEach(child => child.remove_style_pseudo_class("hover"));
         this.systemButtonsBox.get_children().forEach(child => child.remove_style_pseudo_class("hover"));
-        
+
         if (button instanceof CategoryButton) {
             if (this.searchActive)
                 return;
-            
+
             if (button.categoryId !== this.lastSelectedCategory) {
                 if (this.categoryHover || LukaKeyNavigation) {
                 LukaKeyNavigation = false;
@@ -2827,11 +2827,11 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
                                                 vertical: true,
                                                 accessible_role: Atk.Role.LIST });
 
-                                                
+
         // Add additional box with 0 padding as a workaround to bug github.com/linuxmint/cinnamon/issues/11760 (thanks to fredcw)
         this.categoriesBugfixBox = new St.BoxLayout({ style: 'padding: 0px; margin: 0px; spacing: 0px;' });
         this.categoriesBugfixBox.add_actor(this.categoriesBox);
-        
+
         this.categoriesScrollBox = new St.ScrollView({ style_class: 'vfade menu-applications-scrollbox' });
         this.categoriesScrollBox.add_actor(this.categoriesBugfixBox);
         this.categoriesScrollBox.set_policy(St.PolicyType.NEVER, St.PolicyType.AUTOMATIC);
