@@ -15,7 +15,7 @@
         "luka" : {
             "type" : "page",
             "title" : "Luka",
-            "sections" : ["system-buttons", "menu-options"]
+            "sections" : ["system-buttons", "menu-options", "menu-size"]
         },
         "panel-appear" : {
             "type" : "section",
@@ -45,9 +45,14 @@
             "keys" : ["show-lock", "show-logout", "show-quit", "old-quit-dialog"]
         },
         "menu-options" : {
-        	"type" : "section",
-        	"title" : "Menu Options",
-        	"keys" : ["show-category-hover", "category-keyboard-navigation","show-name", "show-description", "lock-size", "inf-size", "set-size"]
+           "type" : "section",
+           "title" : "Menu Options",
+           "keys" : ["show-category-hover", "category-keyboard-navigation","show-name", "show-description"]
+        },
+        "menu-size" : {
+           "type" : "section",
+           "title" : "Menu Size",
+           "keys" : ["lock-size", "inf-size", "set-size-x", "set-size-y", "set-size", "reset-set-size"]
         }
     },
  "overlay-key" : {
@@ -269,9 +274,31 @@
     "default" : false,
     "description" : "infinitely resizable menu"
  },
-    "set-size" : {
-    "type" : "button",
-    "description" : "Set the menu to my preffered size",
-    "callback" : "_setSize"
+    "set-size-x": {
+    "type": "spinbutton",
+    "default": 965,
+    "min": 1,
+    "max": 9999,
+    "step": 1,
+    "description": "width in pixel"
+ },
+    "set-size-y": {
+    "type": "spinbutton",
+    "default": 503,
+    "min": 1,
+    "max": 9999,
+    "step": 1,
+    "description": "height in pixel"
+ },
+    "set-size": {
+    "type": "button",
+    "description": "Set the menu to my preffered size",
+    "callback": "_setSize"
+ },
+    "reset-set-size": {
+    "type": "button",
+    "description": "reset selected",
+    "callback": "_resetSetSize",
+    "tooltip": "does not show immediately after pressing\nhover over the numbers to show the updated value"
  }
 }

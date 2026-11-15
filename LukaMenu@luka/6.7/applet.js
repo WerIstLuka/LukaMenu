@@ -1274,6 +1274,8 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
         this.settings.bind("old-quit-dialog", "oldQuit", () => this._updateQuitDialog());
         this.settings.bind("show-category-hover", "showCategoryHover");
         this.settings.bind("category-keyboard-navigation", "CategoryKeyboardNavigation");
+        this.settings.bind("set-size-y", "setSizeY");
+        this.settings.bind("set-size-x", "setSizeX");
 
         this._updateResize();
 
@@ -1372,11 +1374,15 @@ class CinnamonMenuApplet extends Applet.TextIconApplet {
 	}
 
 	_setSize() {
-		let width = 965;
-		let height = 503;
+		let width = this.setSizeX;
+		let height = this.setSizeY;
 		this.popup_width = width;
 		this.popup_height = height;
 		this._setMenuSize(width, height);
+	}
+	_resetSetSize() {
+		this.setSizeX = this.settings.getDefaultValue("set-size-x");
+		this.setSizeY = this.settings.getDefaultValue("set-size-y");
 	}
 
     _updateShowIcons(container, show) {
